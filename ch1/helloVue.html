@@ -2,14 +2,96 @@
 
 <head>
     <meta charset="utf-8">
-    <title>hello Vue</title>
+    <title>hello vue</title>
+    <!-- import vue 3x -->
     <script src="https://unpkg.com/vue@next"></script>
 </head>
 
 <body>
     <div id="app">
         <p>计数器：{{counter}}</p>
+        <!-- 使用方法 -->
+        <button @click="stopCounter">reset</button>
+        <!-- 条件控制 -->
+        <div v-if="isShow">Time up! game over!</div>
+        <!-- 循环 -->
+        <p>2021-2022学年下期前端框架技术成绩单</p>
+        <table border="2" align="left">
+            <th>学号</th>
+            <th>课程</th>
+            <th>班级</th>
+            <th>姓名</th>
+            <th>分数</th>
+            <tr v-for="(item, index) in list">
+                <td>{{item.id}}</td>
+                <td>{{item.course}}</td>
+                <td>{{item.class}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.score}}</td>
+            </tr>
+        </table>
     </div>
 </body>
+<script type="text/javascript">
+    const scoreList = [{
+        id: 12333,
+        course: '前端框架技术',
+        class: '2020数据1班',
+        name: '刘康',
+        score: 87
+    }, {
+        id: 12335,
+        course: '前端框架技术',
+        class: '2020数据1班',
+        name: '薛洋',
+        score: 85
+    }, {
+        id: 12338,
+        course: '前端框架技术',
+        class: '2020数据1班',
+        name: '肖建勋',
+        score: 89
+    }, {
+        id: 12339,
+        course: '前端框架技术',
+        class: '2020数据1班',
+        name: '陈春宏',
+        score: 89
+    }]
+    const App = {
+            //data area
+            data() {
+                return {
+                    counter: 0,
+                    isShow: false,
+                    list: []
+                }
+            },
+            mounted() {
+                this.getScoreList()
+                setInterval(() => {
+                    if (this.counter > 8) {
+                        this.isShow = true
+                        this.counter = 0
+                    } else {
+                        this.isShow = false
+                    }
+                    this.counter++
+                }, 1000)
+            },
+            //methods area
+            methods: {
+                getScoreList() {
+                    this.list = scoreList
+                },
+                stopCounter() {
+                    this.counter = 0
+                }
+            }
+        }
+        // create vue instance
+    const app = Vue.createApp(App)
+    app.mount('#app')
+</script>
 
 </html>
